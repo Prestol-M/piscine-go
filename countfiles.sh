@@ -1,2 +1,2 @@
 
-ls -l | grep -v ^l | wc -l
+find . -type f -print | wc -l
