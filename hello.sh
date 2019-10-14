@@ -1,2 +1,1 @@
-#!/bin/bash
-echo Hello Prestol-M!
+echo "Hello Prestol-M!"
