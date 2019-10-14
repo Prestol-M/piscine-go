@@ -1,2 +1,2 @@
-
-find . -type f -print | wc -l
+#!/bin/bash
+find . -name \* | wc -l
