@@ -2,7 +2,7 @@ package piscine
 
 import "github.com/01-edu/z01"
 
-func IntToRune2(num int) (runenum rune) {
+func IntToRune(num int) (runenum rune) {
 	switch num {
 	case 0:
 		runenum = '0'
@@ -31,10 +31,10 @@ func IntToRune2(num int) (runenum rune) {
 func TwoDgNum(num int) {
 	if num < 10 {
 		z01.PrintRune('0')
-		z01.PrintRune(IntToRune2(num))
+		z01.PrintRune(IntToRune(num))
 	} else {
-		z01.PrintRune(IntToRune2(num / 10))
-		z01.PrintRune(IntToRune2(num % 10))
+		z01.PrintRune(IntToRune(num / 10))
+		z01.PrintRune(IntToRune(num % 10))
 	}
 }
 
