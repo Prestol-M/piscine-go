@@ -1,12 +1,15 @@
-
 package piscine
 
+//import "fmt"
+
 func StrLen(str string) int {
-	k := 0
-	for i := range str {
-		if i == i {
-			k++
+	var count int
+	var a int
+	for index, word := range str {
+		if word == 233 {
+			a = -1
 		}
+		count = index + 1 + a
 	}
-	return k
+	return count
 }
