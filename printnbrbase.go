@@ -1,51 +1,52 @@
 package piscine
 
-import "github.com/01-edu/z01"
+import (
+	"github.com/01-edu/z01"
+)
 
 func PrintNbrBase(nbr int, base string) {
-	var negative bool
-	if base == "0123456789" {
-		PrintNbr(nbr)
-		return
-	}
-	if nbr < 0 {
-		nbr = -nbr
-		negative = true
-	} else {
-		negative = false
-	}
-	baseC := []rune(base)
-	length := RuneArrayLength(baseC)
-	for i := range baseC {
-		if baseC[i] == '+' || baseC[i] == '-' {
-			z01.PrintRune('N')
-			z01.PrintRune('V')
-			return
+	counter := 0
+	fail := false
+	minus := false
+	for i, v := range base {
+		if v == '-' || v == '+' {
+			fail = true
 		}
-		for j := i + 1; j < length; j++ {
-			if baseC[i] == baseC[j] {
-				z01.PrintRune('N')
-				z01.PrintRune('V')
-				return
+		counter++
+		for j, v2 := range base {
+			if v == v2 && i != j {
+				fail = true
 			}
 		}
 	}
-	if length < 2 {
+	if counter < 2 {
+		fail = true
+	}
+	if fail == true {
 		z01.PrintRune('N')
 		z01.PrintRune('V')
-		return
-	}
-	result := ""
-	for nbr > 0 {
-		temp := nbr % length
-		result = string(baseC[temp]) + result
-		nbr = nbr / length
-	}
-	answer := []rune(result)
-	if negative == true {
-		z01.PrintRune('-')
-	}
-	for _, char := range answer {
-		z01.PrintRune(char)
+	} else {
+		if nbr < 0 {
+			minus = true
+			nbr = nbr * (-1)
+		}
+		res := ""
+		bRune := []rune(base)
+		for nbr != 0 {
+			x := nbr % counter
+			if x < 0 {
+				x = x * (-1)
+			}
+			res = string(bRune[x]) + res
+			nbr = nbr / counter
+		}
+		if minus == true {
+			z01.PrintRune('-')
+		}
+		runes := []rune(res)
+		for _, v := range runes {
+			z01.PrintRune(v)
+		}
+
 	}
 }
