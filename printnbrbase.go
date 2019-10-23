@@ -1,56 +1,51 @@
 package piscine
 
-import (
-	"github.com/01-edu/z01"
-)
+import "github.com/01-edu/z01"
 
 func PrintNbrBase(nbr int, base string) {
-	l := LenLen(base)
-	if CheckBase(base) == false || l < 2 {
-		z01.PrintRune('N')
-		z01.PrintRune('V')
-	} else if nbr > 2000000000 || nbr < -2000000000 {
-	} else {
-		if nbr < 0 {
-			z01.PrintRune('-')
-			nbr *= -1
-		}
-		str := ""
-		for nbr >= l {
-			str += string(base[nbr%l])
-			nbr = nbr / l
-		}
-		str += string(base[nbr])
-		str = RevStr(str)
-		for _, letter := range str {
-			z01.PrintRune(letter)
-		}
+	var negative bool
+	if base == "0123456789" {
+		PrintNbr(nbr)
+		return
 	}
-}
-func CheckBase(base string) bool {
-	for index, letter := range base {
-		for i := index + 1; i < LenLen(base); i++ {
-			if letter == '-' || letter == '+' || letter == rune(base[i]) {
-				return false
+	if nbr < 0 {
+		nbr = -nbr
+		negative = true
+	} else {
+		negative = false
+	}
+	baseC := []rune(base)
+	length := RuneArrayLength(baseC)
+	for i := range baseC {
+		if baseC[i] == '+' || baseC[i] == '-' {
+			z01.PrintRune('N')
+			z01.PrintRune('V')
+			return
+		}
+		for j := i + 1; j < length; j++ {
+			if baseC[i] == baseC[j] {
+				z01.PrintRune('N')
+				z01.PrintRune('V')
+				return
 			}
 		}
 	}
-	return true
-}
-func RevStr(str string) string {
-	var rev string
-	l := LenLen(str)
-	for i := l - 1; i >= 0; i-- {
-		rev += string(str[i])
+	if length < 2 {
+		z01.PrintRune('N')
+		z01.PrintRune('V')
+		return
 	}
-	return rev
-}
-
-func LenLen(str string) int {
-	count := 0
-	a := []rune(str)
-	for index := range a {
-		count = index + 1
+	result := ""
+	for nbr > 0 {
+		temp := nbr % length
+		result = string(baseC[temp]) + result
+		nbr = nbr / length
 	}
-	return count
+	answer := []rune(result)
+	if negative == true {
+		z01.PrintRune('-')
+	}
+	for _, char := range answer {
+		z01.PrintRune(char)
+	}
 }
